@@ -12,9 +12,7 @@
 		var displayedQuotes = [];  
 
 		// quotes array :
-
 		var quotes = [
-
 		{
 			quote : "Carry out a random act of kindness, with no expectation of reward, safe in the knowledge that one day someone might do the same for you.",
 			source : "Princess Diana",
@@ -22,7 +20,6 @@
 			year : "",
 			tags : "Knowledge, Kindness, Day" 
 		},
-
 		{ 
 			quote : "I believe life is an intelligent thing: that things aren't random.",
 			source: "Steve Jobs",
@@ -30,7 +27,6 @@
 			year : "",
 			tags: "Life, Believe, Intelligent"
 		},
-
 		{
 			quote : "I have no special talent. I am only passionately curious",
 			source: "Albert Einstein",
@@ -38,7 +34,6 @@
 			year: "",
 			tags: "Education, I Am, Talent"
 		},
-
 		{
 			quote : "First they ignore you, then they laugh at you, then they fight you, then you win.", 
 			source : "Mahatma Gandhi",
@@ -46,7 +41,6 @@
 			year: "",
 			tags: "Fight, Laugh, Win"	   	
 		},
-
 		{
 			quote: "Pleasure in the job puts perfection in the work.",
 			source : "Aristotle", 
@@ -54,10 +48,8 @@
 			year: "",
 			tags: "Work, Job, Perfection"	   	
 		}
-
 		];
 
-		
 		//This function generates a random number. 
 		function randomNumber() {
 			var number = Math.floor(Math.random() * quotes.length);
@@ -82,67 +74,65 @@
 
 	     //This function will change the color of the background and the button.
 	     function newBackgroundColor() {  
-	     	randomColor();
-	     	document.body.style.backgroundColor = color;
-	     	document.getElementById('loadQuote').style.backgroundColor = color;
+	     randomColor();
+	     document.body.style.backgroundColor = color;
+	     document.getElementById('loadQuote').style.backgroundColor = color;
 	     }
 
 	    //When the button is clicked then this function resets the timer to 0.
 	    function resetTimer() { 
-	    	clearInterval(changeQuote);
-	    	changeQuote = window.setTimeout(printQuote, 30000);
+	    clearInterval(changeQuote);
+	    changeQuote = window.setTimeout(printQuote, 30000);
 	    }
 	    
 	    //This function uses a for loop to retrieve all the objects from the displayed array and restore them to the restore quotes array.
 	    function restoreQuotesArray() { 
-	    	for (var i=0; i < 5; i++) {
-	    		var retrieveObject = displayedQuotes.shift();
-	    		quotes.push(retrieveObject);
+	    for (var i=0; i < 5; i++) {
+	    var retrieveObject = displayedQuotes.shift();
+	    quotes.push(retrieveObject);
 	    	}
 	    }
 
-		// The printQuote function  calls the getRandomQuote function and stores the returned quote object in a variable
-		function printQuote() {
-		//In case all the quotes have been displayed, all quote objects are put back into the quotes array
-		if (quotes.length < 1) { 
-			restoreQuotesArray();
-		}
-		var quoteObject = getRandomQuote();
-		
-		htmlQuote = '<p class="quote">' + quoteObject.quote + '</p> <p class="source">' + quoteObject.source;
-			  //In case citation is provided it will get added to the htmlQuote.
-			  if (quoteObject.citation !== ' ') {  
-			  	htmlQuote += '<span class="citation">' + quoteObject.citation + '</span>';
-			  }
-	          //In case year is provided it also gets added to the htmlQuote.
-	          if (quoteObject.year !== ' ') { 
-	          	htmlQuote += '<span class="year">' + quoteObject.year + '</span>';
-	          }
-              //In case any tags are provided, they are also added to the htmlQuote.
-	          if (quoteObject.tags !== ' ') { 
-	          	htmlQuote += '<span class="tags">' + quoteObject.tags + '</span>';
-	          }
+	// The printQuote function  calls the getRandomQuote function and stores the returned quote object in a variable
+	function printQuote() {
+	//In case all the quotes have been displayed, all quote objects are put back into the quotes array
+	if (quotes.length < 1) { 
+	restoreQuotesArray();
+	}
+	var quoteObject = getRandomQuote();
+	htmlQuote = '<p class="quote">' + quoteObject.quote + '</p> <p class="source">' + quoteObject.source;
+	  //In case citation is provided it will get added to the htmlQuote.
+	  if (quoteObject.citation !== ' ') {  
+	  htmlQuote += '<span class="citation">' + quoteObject.citation + '</span>';
+	  }
+	  //In case year is provided it also gets added to the htmlQuote.
+	    if (quoteObject.year !== ' ') { 
+	    htmlQuote += '<span class="year">' + quoteObject.year + '</span>';
+	    }
+            //In case any tags are provided, they are also added to the htmlQuote.
+	      if (quoteObject.tags !== ' ') { 
+	      htmlQuote += '<span class="tags">' + quoteObject.tags + '</span>';
+	      }
+	     htmlQuote += '</p>';
 
-	          htmlQuote += '</p>';
+	 // This will get the html in the quote-box div and replace it with 'htmlQuote'.
+	 document.getElementById('quote-box').innerHTML =  htmlQuote; 
 
-			 	  // This will get the html in the quote-box div and replace it with 'htmlQuote'.
-			 	  document.getElementById('quote-box').innerHTML =  htmlQuote; 
+	   // Finds the index of the quote object 
+	   var indexQuoteObject = quotes.indexOf(quoteObject); 
 
-	             // Finds the index of the quote object 
-	             var indexQuoteObject = quotes.indexOf(quoteObject); 
+	// Here the selected quote object is moved into the displayedQuotes array and..
+	 displayedQuotes.push(quoteObject); 
 
-				 // Here the selected quote object is moved into the displayedQuotes array and..
-				 displayedQuotes.push(quoteObject); 
+	 // And also removed from the quotes array.
+	 quotes.splice(indexQuoteObject, 1); 
 
-				 // And also removed from the quotes array.
-				 quotes.splice(indexQuoteObject, 1); 
+	 newBackgroundColor();
 
-				 newBackgroundColor();
+	 resetTimer();
 
-				 resetTimer();
+	 return htmlQuote;
+	} 
 
-				 return htmlQuote;
-				} 
-
-		// Here the printQuote function is called at an interval of 30 seconds to display a new quote.
-		var changeQuote = window.setTimeout(printQuote, 30000); 
+	// Here the printQuote function is called at an interval of 30 seconds to display a new quote.
+	var changeQuote = window.setTimeout(printQuote, 30000); 
