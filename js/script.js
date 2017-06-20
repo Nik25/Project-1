@@ -108,12 +108,11 @@
 			restoreQuotesArray();
 		}
 		var quoteObject = getRandomQuote();
-		
 		htmlQuote = '<p class="quote">' + quoteObject.quote + '</p> <p class="source">' + quoteObject.source;
-			  //In case citation is provided, it will get added to the htmlQuote.
-			  if (quoteObject.citation !== ' ') {  
-			  	htmlQuote += '<span class="citation">' + quoteObject.citation + '</span>';
-			  }
+		 //In case citation is provided, it will get added to the htmlQuote.
+		 if (quoteObject.citation !== ' ') {  
+		htmlQuote += '<span class="citation">' + quoteObject.citation + '</span>';
+		  }
 	          //In case year is given, it also gets added to the htmlQuote.
 	          if (quoteObject.year !== ' ') { 
 	          	htmlQuote += '<span class="year">' + quoteObject.year + '</span>';
@@ -122,27 +121,19 @@
 	          if (quoteObject.tags !== ' ') { 
 	          	htmlQuote += '<span class="tags">' + quoteObject.tags + '</span>';
 	          }
-
 	          htmlQuote += '</p>';
-
-			 	  // This will get the html in the quote-box div and replace it with 'htmlQuote'.
-			 	  document.getElementById('quote-box').innerHTML =  htmlQuote; 
-
-	             // Finds the index of the quote object 
+		 // This will get the html in the quote-box div and replace it with 'htmlQuote'.
+		  document.getElementById('quote-box').innerHTML =  htmlQuote; 
+	           // Finds the index of the quote object 
 	             var indexQuoteObject = quotes.indexOf(quoteObject); 
-
-				 // Here the selected quote object is moved into the displayedQuotes array..
-				 displayedQuotes.push(quoteObject); 
-
-				 //And also removed from the quotes array.
-				 quotes.splice(indexQuoteObject, 1); 
-
-				 newBackgroundColor();
-
-				 resetTimer();
-
-				 return htmlQuote;
-				} 
+		// Here the selected quote object is moved into the displayedQuotes array..
+		 displayedQuotes.push(quoteObject); 
+		 //And also removed from the quotes array.
+		 quotes.splice(indexQuoteObject, 1); 
+		 newBackgroundColor();
+		 resetTimer();
+		 return htmlQuote;
+		} 
 
 		// Here the printQuote function is called at an interval of 30 seconds to display a new quote.
 		var changeQuote = window.setTimeout(printQuote, 30000); 
